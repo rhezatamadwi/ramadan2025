@@ -67,8 +67,13 @@
             </li>
         </ul>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Follow Instagram <a target="_blank" href="https://instagram.com/lifeatlpdp" class="text-[#007dd9] dark:text-[#007dd9] font-medium">@lifeatlpdp</a></p>
+    
+        <!-- <div class="flex items-center gap-2">
+            <a href="https://lpdp.kemenkeu.go.id/" target="_blank" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-[#007dd9] hover:bg-[#005bb5] focus:ring-4 focus:outline-none focus:ring-[#007dd9]/50 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05),0px_1px_3px_0px_rgba(0,0,0,0.1)] dark:bg-[#007dd9] dark:hover:bg-[#005bb5] dark:focus:ring-[#007dd9]/40">Website</a>
+            <a href="https://lpdp.kemenkeu.go.id/faq/" target="_blank" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-[#007dd9] hover:bg-[#005bb5] focus:ring-4 focus:outline-none focus:ring-[#007dd9]/50 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05),0px_1px_3px_0px_rgba(0,0,0,0.1)] dark:bg-[#007dd9] dark:hover:bg-[#005bb5] dark:focus:ring-[#007dd9]/40">FAQ</a>
+        </div> -->
     </div>
-    <div class="bg-[#fff2f2] dark:bg-[#FFFFFF] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
+    <!-- <div class="bg-[#fff2f2] dark:bg-[#FFFFFF] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
         <img src="{{ asset('images/lpdp-ramadan.png') }}" alt="LPDP Ramadan" class="w-full h-full object-cover">
-    </div>
+    </div> -->
 @endsection
