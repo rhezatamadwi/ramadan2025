@@ -32,6 +32,7 @@ class AuthenticatedSessionController extends Controller
         $user->save();
 
         $request->session()->regenerate();
+        $request->session()->flash('alert-success', 'Sukses login');
 
         return redirect()->intended(route('home', absolute: false));
     }

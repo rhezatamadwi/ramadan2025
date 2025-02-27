@@ -16,3 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
         maxDate: "today"
     });
 });
+
+// Get the element
+const is_haid = document.querySelector('#is_haid');
+const container_form = document.querySelector('#container-laporan-form');
+const container_haid_form = document.querySelector('#container-laporan-haid-form');
+
+is_haid.addEventListener('change', (e) => {
+    // memilih sedang datang bulan
+    if(e.target.value == 1) {
+        container_form.style.display="none";
+        container_haid_form.style.display="block";
+    }
+
+    // memilih tidak sedang datang bulan
+    else {
+        container_form.style.display="block";
+        container_haid_form.style.display="none";
+    }
+});

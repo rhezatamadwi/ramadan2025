@@ -9,6 +9,10 @@ class HomeController extends Controller
     //
     public function index()
     {
-        return view('home');
+        $nama = auth()->user()->name ?? null;
+
+        return view('home', [
+            'nama' => $nama
+        ]);
     }
 }
