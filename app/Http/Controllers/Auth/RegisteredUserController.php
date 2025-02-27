@@ -17,9 +17,17 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
+    
     public function create(): View
     {
-        return view('auth.register');
+        $gender = [
+            'L' => 'Pria',
+            'P' => 'Wanita',
+        ];
+
+        return view('auth.register', [
+            'gender' => $gender,
+        ]);
     }
 
     /**
@@ -39,12 +47,14 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'last_login_at' => date('Y-m-d H:i:s'),
+            'gender' => $request->gender
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home', absolute: false));
     }
 }
