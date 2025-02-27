@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     flatpickr('.datepicker', {
         dateFormat: "Y-m-d",
         minDate: "2025-02-01",
-        maxDate: "today"
+        maxDate: "today",
+        defaultDate: "today"
     });
 });
 
