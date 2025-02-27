@@ -31,11 +31,10 @@ class LaporanHarianController extends Controller
         $is_wanita = $user->gender == 'P';
 
         // get laporan harian
-        $laporan_harian = DB::table('laporan_harian')
-        ->select(
+        $laporan_harian = LaporanHarian::select(
             'laporan_harian.*',
             'm_hari.tanggal_hijriyah',
-            'm_hari.tanggal_masehi',
+            'm_hari.tanggal_masehi'
         )
         ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
         ->where('id_user', auth()->user()->id)

@@ -88,18 +88,28 @@
                 <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 140px);">
                     @if(!empty($laporan_harian))
                         <div class="flex flex-col gap-4">
-                            @foreach ($laporan_harian as $laporan)
-                                <div class="bg-gray-50 dark:bg-[#161615] border border-gray-200 dark:border-[#3E3E3A] rounded-lg p-4">
-                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-[#EDEDEC]">{{ $laporan->tanggal_hijriyah . ' / ' . $laporan->tanggal_masehi }}</h4>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan 3x kalo Sholat Berjamaah di Masjid/ Sholat Diawal Waktu: {{ $laporan->sholat_berjamaah }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Mengaji 2 lembar: {{ $laporan->mengaji }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Infaq: {{ $laporan->infaq }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Tarawih Berjamaah: {{ $laporan->tarawih_berjamaah }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Sholat Dhuha: {{ $laporan->dhuha }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Mendengar Kajian Islam: {{ $laporan->kajian }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Tahajjud: {{ $laporan->tahajjud }}</p>
-                                </div>
-                            @endforeach
+                            <table class="table-auto w-full">
+                                @foreach ($laporan_harian as $laporan)
+                                    <tr colspan="2">
+                                        <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                            {!! '<span class="text-lg font-bold">' . $laporan->tanggal_hijriyah . ' / ' . $laporan->getFormattedDate() . '</span>' !!}
+                                            @if ($laporan->is_haid)
+                                            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Datang Bulan</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @foreach ($laporan->getListAttributesFilled() as $attribute)
+                                        <tr>
+                                            <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                                {{ $laporan->getAttributeLabel($attribute) }}
+                                            </td>
+                                            <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                                {!! $laporan->getFormattedAttribute($attribute) !!}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </table>
                         </div>
                     @else
                         <p class="text-gray-600 dark:text-[#A1A09A]">Tidak ada laporan harian yang tersedia. Silahkan tambahkan pada tombol "Tambah Laporan Harian"</p>
