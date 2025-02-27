@@ -30,9 +30,22 @@ class LaporanHarianController extends Controller
         $user = auth()->user();
         $is_wanita = $user->gender == 'P';
 
+        // get laporan harian
+        $laporan_harian = DB::table('laporan_harian')
+        ->select(
+            'laporan_harian.*',
+            'm_hari.tanggal_hijriyah',
+            'm_hari.tanggal_masehi',
+        )
+        ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
+        ->where('id_user', auth()->user()->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         return view('laporan.create', [
             'options' => $options,
-            'is_wanita' => $is_wanita
+            'is_wanita' => $is_wanita,
+            'laporan_harian' => $laporan_harian
         ]);
     }
 

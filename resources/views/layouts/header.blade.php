@@ -12,16 +12,14 @@
                 <x-theme-switch class="ml-4" />
                 
                 @auth
-                    <a
-                        href="{{ route('laporan.create') }}"
-                        class="flex inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#007dd9] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#007dd9] rounded-sm text-sm leading-normal"
-                    >
-                        <x-lucide-plus class="w-5 h-5 mr-1" /> Laporan Harian
-                    </a>
+                    <!-- Modal Trigger Button -->
+                    <button id="openModalBtn" class="px-2 py-2 text-[#1b1b18] dark:text-[#EDEDEC] border border-[#19140035] dark:border-[#3E3E3A] hover:border-[#007dd9] dark:hover:border-[#007dd9] rounded">
+                        Laporan Harian
+                    </button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <button type="submit" class="flex inline-block px-5 py-1.5 dark:text-[#FF4433] border-scarlet-500 hover:border-[#FF4433] text-[#FF4433] dark:border-[#3E3E3A] dark:hover:border-[#FF4433] rounded-sm text-sm leading-normal">
+                        <button type="submit" class="flex inline-block px-2 py-1.5 dark:text-[#FF4433] border-scarlet-500 hover:border-[#FF4433] text-[#FF4433] dark:border-[#3E3E3A] dark:hover:border-[#FF4433] rounded-sm text-sm leading-normal">
                             <x-lucide-log-out class="w-5 h-5 mr-1" /> {{ __('Log Out') }}
                         </button>
                     </form>

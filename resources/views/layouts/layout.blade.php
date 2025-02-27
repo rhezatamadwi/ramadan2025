@@ -59,6 +59,99 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
 
+        <!-- Modal Backdrop -->
+        <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-40">
+            <!-- Modal Container - Made larger -->
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden">
+                <!-- Modal Header -->
+                <div class="px-6 py-4 bg-gray-100 border-b flex justify-between items-center">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-medium text-gray-900">Laporan Harian</h3>
+                        <a
+                            href="{{ route('laporan.create') }}"
+                            class="flex inline-block px-2 py-1.5 bg-[#007dd9] text-[#EDEDEC] hover:bg-[#1d97f1] rounded-sm text-sm leading-normal ml-4"
+                        >
+                            <x-lucide-plus class="w-5 h-5 mr-1" /> Tambah Laporan Harian
+                        </a>
+                    </div>
+                    
+                    <div class="flex gap-4 items-center justify-end">
+                        <button id="closeModalBtn" class="text-gray-400 hover:text-gray-500">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Body - With fixed height -->
+                <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 140px);">
+                    @if(!empty($laporan_harian))
+                        <div class="flex flex-col gap-4">
+                            @foreach ($laporan_harian as $laporan)
+                                <div class="bg-gray-50 dark:bg-[#161615] border border-gray-200 dark:border-[#3E3E3A] rounded-lg p-4">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-[#EDEDEC]">{{ $laporan->tanggal_hijriyah . ' / ' . $laporan->tanggal_masehi }}</h4>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan 3x kalo Sholat Berjamaah di Masjid/ Sholat Diawal Waktu: {{ $laporan->sholat_berjamaah }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Mengaji 2 lembar: {{ $laporan->mengaji }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Infaq: {{ $laporan->infaq }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Tarawih Berjamaah: {{ $laporan->tarawih_berjamaah }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Sholat Dhuha: {{ $laporan->dhuha }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Mendengar Kajian Islam: {{ $laporan->kajian }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-[#A1A09A]">Melaksanakan Tahajjud: {{ $laporan->tahajjud }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-gray-600 dark:text-[#A1A09A]">Tidak ada laporan harian yang tersedia. Silahkan tambahkan pada tombol "Tambah Laporan Harian"</p>
+                    @endif
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="px-6 py-4 bg-gray-100 border-t flex justify-end">
+                    <button id="cancelBtn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2 hover:bg-gray-300">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+
         @include('layouts.footer')
+
+        <script>
+            // Modal functionality
+            const modalBackdrop = document.getElementById('modalBackdrop');
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            // Open modal
+            openModalBtn.addEventListener('click', () => {
+                modalBackdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            });
+            
+            // Close modal functions
+            const closeModal = () => {
+                modalBackdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            };
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Close on backdrop click
+            modalBackdrop.addEventListener('click', (e) => {
+                if (e.target === modalBackdrop) {
+                    closeModal();
+                }
+            });
+            
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modalBackdrop.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        </script>
     </body>
 </html>
