@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <meta property="og:title" content="LPDP Ramadan">
+        <meta property="og:description" content="Aplikasi LPDP Ramadan 2025 - Laporkan kegiatan Ramadanmu disini.">
+        <meta property="og:image" content="{{ asset('images/lpdp-ramadan.png') }}">
+
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Favicon -->
