@@ -90,8 +90,8 @@
                         <div class="flex flex-col gap-4">
                             <table class="table-auto w-full">
                                 @foreach ($laporan_harian as $laporan)
-                                    <tr colspan="2">
-                                        <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                    <tr>
+                                        <td class="px-4 py-2 border-b border-[#3E3E3A]" colspan="2">
                                             {!! '<span class="text-lg font-bold">' . $laporan->tanggal_hijriyah . ' / ' . $laporan->getFormattedDate() . '</span>' !!}
                                             @if ($laporan->is_haid)
                                             <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Datang Bulan</span>
@@ -100,10 +100,10 @@
                                     </tr>
                                     @foreach ($laporan->getListAttributesFilled() as $attribute)
                                         <tr>
-                                            <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                            <td class="px-4 py-2 border-b border-gray-200">
                                                 {{ $laporan->getAttributeLabel($attribute) }}
                                             </td>
-                                            <td class="px-4 py-2 border-b border-gray-200 dark:border-[#3E3E3A]">
+                                            <td class="px-4 py-2 border-b border-gray-200">
                                                 {!! $laporan->getFormattedAttribute($attribute) !!}
                                             </td>
                                         </tr>
