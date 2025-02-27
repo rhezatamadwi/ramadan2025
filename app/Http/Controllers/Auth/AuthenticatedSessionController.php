@@ -26,9 +26,14 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // set last login time
+        $user = Auth::user();
+        $user->last_login_at = date('Y-m-d H:i:s');
+        $user->save();
+
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**
