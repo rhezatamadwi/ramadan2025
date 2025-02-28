@@ -14,6 +14,9 @@ class HomeController extends Controller
         $nama = auth()->user()->name ?? null;
         $laporan_harian = null;
 
+        // get hari ini
+        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+
         if($nama) {
             // get laporan harian
             $laporan_harian = LaporanHarian::select(
@@ -25,10 +28,13 @@ class HomeController extends Controller
             ->where('id_user', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
-        }
 
-        // get hari ini
-        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+            $laporan_harian_hari_ini = DB::table('laporan_harian')
+                ->select(DB::raw('count(*) as jumlah'))
+                ->where('id_user', auth()->user()->id)
+                ->where('id_hari', $hari_ini->id)
+                ->first();
+        }
 
         $list_jadwal_sholat = [
             0 => [
@@ -72,19 +78,13 @@ class HomeController extends Controller
                 'is' => time() >= strtotime($hari_ini->isya)
             ],
         ];
-
-        $laporan_harian_hari_ini = DB::table('laporan_harian')
-            ->select(DB::raw('count(*) as jumlah'))
-            ->where('id_user', auth()->user()->id)
-            ->where('id_hari', $hari_ini->id)
-            ->first();
         
         return view('home', [
             'nama' => $nama,
             'laporan_harian' => $laporan_harian,
             'hari_ini' => $hari_ini,
             'list_jadwal_sholat' => $list_jadwal_sholat,
-            'sudah_lapor_hari_ini' => $laporan_harian_hari_ini->jumlah > 0
+            'sudah_lapor_hari_ini' => isset($laporan_harian_hari_ini) && $laporan_harian_hari_ini->jumlah > 0
         ]);
     }
 }

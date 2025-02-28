@@ -93,8 +93,12 @@
                 
                 <!-- Modal Body - With fixed height -->
                 <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 140px);">
+                    <!-- sudah ada laporan -->
                     @if(!empty($laporan_harian) && count($laporan_harian) > 0)
                         <div class="flex flex-col gap-4">
+                            <div class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+                                <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Laporan hanya bisa diubah di hari yang sama</span>
+                            </div>
                             <table class="table-auto w-full">
                                 @foreach ($laporan_harian as $laporan)
                                     <tr>
@@ -125,6 +129,7 @@
                                 @endforeach
                             </table>
                         </div>
+                    <!-- belum ada laporan -->
                     @else
                         <p class="text-gray-600 dark:text-[#A1A09A]">Tidak ada laporan harian yang tersedia. Silahkan tambahkan pada tombol "Tambah Laporan Harian"</p>
                     @endif

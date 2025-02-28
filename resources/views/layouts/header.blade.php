@@ -4,7 +4,7 @@
             <div class="flex items-center justify-between">
                 <a href="{{ url('/') }}" class="flex items-center text-[16px] font-bold dark:text-[#EDEDEC]">
                     <x-application-logo class="w-12 h-12 fill-current text-gray-800 dark:text-gray-200 object-contain" />
-                    LPDP Ramadan
+                    <span class="hidden lg:block">LPDP Ramadan</span>
                 </a>
             </div>
             <div class="flex gap-4 items-center justify-end">
