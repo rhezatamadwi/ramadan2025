@@ -2,9 +2,13 @@
 
 @section('content')
     <div class="text-[16px] leading-[24px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-        <h1 class="mb-1 font-medium">Buat Laporan Harian</h1>
+        <h1 class="mb-1 font-medium">Setor Laporan Harian</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Hari ini <span class="text-[#007dd9] dark:text-[#007dd9] font-medium">{{ $hari_ini->tanggal_hijriyah }}</span> / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
         
+        <div class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+            <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Setelah setor laporan, kamu masih bisa mengubah laporannya, lho. Tapi hanya bisa diubah di hari yang sama ya :)</span>
+        </div>
+
         <!-- Form -->
         <form action="{{ route('laporan.store') }}" method="POST">
             @csrf
