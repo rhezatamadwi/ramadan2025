@@ -129,14 +129,11 @@ class LaporanHarianController extends Controller
             '*.in' => ':attribute tidak sesuai pilihan',
         ]);
 
-        // get id_hari
-        $hari = DB::table('m_hari')
-            ->select('id')
-            ->where('tanggal_masehi', $request->tanggal)
-            ->first();
+        // get hari ini
+        $hari_ini = $this->getHariIni();
 
         // jika tidak ditemukan
-        if (!$hari) {
+        if (!$hari_ini) {
             return redirect()->back()->withErrors([
                 'tanggal' => 'Tanggal tidak ditemukan',
             ]);
@@ -144,14 +141,14 @@ class LaporanHarianController extends Controller
 
         // save to database
         $laporan = LaporanHarian::where('id_user', $user->id)
-            ->where('id_hari', $hari->id)
+            ->where('id_hari', $hari_ini->id)
             ->first();
 
         if(!$laporan)
             $laporan = new LaporanHarian;
         
         $laporan->id_user = $user->id;
-        $laporan->id_hari = $hari->id;
+        $laporan->id_hari = $hari_ini->id;
         $laporan->is_haid = $is_haid;
 
         $laporan->$attr_1 = $request->$attr_1;
