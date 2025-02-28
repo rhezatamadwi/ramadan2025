@@ -197,7 +197,7 @@ class LaporanHarianController extends Controller
         $user = auth()->user();
         $is_wanita = $user->gender == 'P';
 
-        // get laporan harian
+        // get list laporan harian
         $laporan_harian = LaporanHarian::select(
             'laporan_harian.*',
             'm_hari.tanggal_hijriyah',
@@ -218,6 +218,12 @@ class LaporanHarianController extends Controller
         ->where('laporan_harian.id', $id)
         ->orderBy('created_at', 'desc')
         ->first();
+
+        // jika id user tidak sama dengan id_user pada laporan harian, atau tanggal tidak sama dengan hari ini
+        if($laporan_harian_instance->id_user != $user->id || $laporan_harian_instance->tanggal_masehi != date('Y-m-d')) {
+            session()->flash('alert-danger', 'Anda tidak memiliki akses untuk mengubah laporan ini!');
+            return redirect()->route('home');
+        }
 
         // get hari ini
         $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
