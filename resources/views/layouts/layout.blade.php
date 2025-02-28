@@ -75,12 +75,14 @@
                 <div class="px-6 py-4 bg-gray-100 border-b flex justify-between items-center">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-medium text-gray-900">Laporan Harian</h3>
-                        <a
-                            href="{{ route('laporan.create') }}"
-                            class="flex inline-block px-2 py-1.5 bg-[#007dd9] text-[#EDEDEC] hover:bg-[#1d97f1] rounded text-sm leading-normal ml-4"
-                        >
-                            <x-lucide-plus class="w-5 h-5 mr-1" /> Tambah Laporan Harian
-                        </a>
+                        @if(!$sudah_lapor_hari_ini)
+                            <a
+                                href="{{ route('laporan.create') }}"
+                                class="flex inline-block px-2 py-1.5 bg-[#007dd9] text-[#EDEDEC] hover:bg-[#1d97f1] rounded text-sm leading-normal ml-4"
+                            >
+                                <x-lucide-plus class="w-5 h-5 mr-1" /> Tambah Laporan Harian
+                            </a>
+                        @endif
                     </div>
                     
                     <div class="flex gap-4 items-center justify-end">
@@ -95,12 +97,12 @@
                 <!-- Modal Body - With fixed height -->
                 <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 140px);">
                     <!-- sudah ada laporan -->
-                    @if(!empty($laporan_harian) && count($laporan_harian) > 0)
+                    @if(!empty($list_laporan_harian) && count($list_laporan_harian) > 0)
                         <div class="flex flex-col gap-4">
                             <div class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
                                 <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Laporan hanya bisa diubah di hari yang sama</span>
                             </div>
-                            @foreach ($laporan_harian as $laporan)
+                            @foreach ($list_laporan_harian as $laporan)
                                 <div class="border-b border-slate-200">
                                     <button onclick="toggleAccordion({{ $loop->index }})" class="w-full flex justify-between items-center py-5 text-slate-800">
                                         <!-- accordion title -->

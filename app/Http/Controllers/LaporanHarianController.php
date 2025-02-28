@@ -31,28 +31,33 @@ class LaporanHarianController extends Controller
         $is_wanita = $user->gender == 'P';
 
         // get laporan harian
-        $laporan_harian = LaporanHarian::select(
-            'laporan_harian.*',
-            'm_hari.tanggal_hijriyah',
-            'm_hari.tanggal_masehi'
-        )
-        ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
-        ->where('id_user', auth()->user()->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $list_laporan_harian = $this->getListLaporanHarian();
 
         // get hari ini
-        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+        $hari_ini = $this->getHariIni();
+
+        // apakah sudah lapor hari ini
+        $sudah_lapor_hari_ini = $this->getIsSudahLaporHariIni($hari_ini->id);
+
+        // jika sudah lapor hari ini
+        if($sudah_lapor_hari_ini) {
+            session()->flash('alert-danger', 'Anda sudah melapor hari ini!');
+            return redirect()->route('home');
+        }
 
         // laporan_harian instance for getting attribute label
         $laporan_harian_instance = resolve(LaporanHarian::class);
 
+        // apakah sudah lapor hari ini
+        $sudah_lapor_hari_ini = $this->getIsSudahLaporHariIni($hari_ini->id);
+
         return view('laporan.create', [
             'options' => $options,
             'is_wanita' => $is_wanita,
-            'laporan_harian' => $laporan_harian,
+            'list_laporan_harian' => $list_laporan_harian,
             'hari_ini' => $hari_ini,
             'laporan_harian_instance' => $laporan_harian_instance,
+            'sudah_lapor_hari_ini' => $sudah_lapor_hari_ini,
         ]);
     }
 
@@ -197,17 +202,6 @@ class LaporanHarianController extends Controller
         $user = auth()->user();
         $is_wanita = $user->gender == 'P';
 
-        // get list laporan harian
-        $laporan_harian = LaporanHarian::select(
-            'laporan_harian.*',
-            'm_hari.tanggal_hijriyah',
-            'm_hari.tanggal_masehi'
-        )
-        ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
-        ->where('id_user', auth()->user()->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
-
         // get laporan harian by id
         $laporan_harian_instance = LaporanHarian::select(
             'laporan_harian.*',
@@ -225,15 +219,22 @@ class LaporanHarianController extends Controller
             return redirect()->route('home');
         }
 
+        // get laporan harian
+        $list_laporan_harian = $this->getListLaporanHarian();
+
         // get hari ini
-        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+        $hari_ini = $this->getHariIni();
+
+        // apakah sudah lapor hari ini
+        $sudah_lapor_hari_ini = $this->getIsSudahLaporHariIni($hari_ini->id);
 
         return view('laporan.create', [
             'options' => $options,
             'is_wanita' => $is_wanita,
-            'laporan_harian' => $laporan_harian,
+            'list_laporan_harian' => $list_laporan_harian,
             'laporan_harian_instance' => $laporan_harian_instance,
             'hari_ini' => $hari_ini,
+            'sudah_lapor_hari_ini' => $sudah_lapor_hari_ini
         ]);
     }
 
