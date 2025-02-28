@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
          * @return \Illuminate\Auth\Access\Response
          */
         Gate::define('view-leaderboard', function (User $user) {
-            return $user->isAdmin
+            return $user->isAdmin()
                 ? Response::allow()
                 : Response::denyAsNotFound();
         });
