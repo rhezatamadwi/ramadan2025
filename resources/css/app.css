@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.breathing-border {
+    animation: breatheBorder 1.5s ease-in-out infinite;
+}
+
+.breathing-dot {
+    animation: breatheDot 1.5s ease-in-out infinite;
+}
+
+@keyframes breatheBorder {
+    0%, 100% {
+        border-color: #007dd9;
+    }
+    50% {
+        border-color: #dbdbd7;
+    }
+}
+
+@keyframes breatheDot {
+    0%, 100% {
+        background-color: #007dd9;
+        transform: scale(1);
+    }
+    50% {
+        background-color: #dbdbd7;
+        transform: scale(0.8);
+    }
+}
