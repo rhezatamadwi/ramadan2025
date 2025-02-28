@@ -90,7 +90,7 @@
                 
                 <!-- Modal Body - With fixed height -->
                 <div class="px-6 py-4 overflow-y-auto" style="max-height: calc(90vh - 140px);">
-                    @if(count($laporan_harian) > 0)
+                    @if(!empty($laporan_harian) && count($laporan_harian) > 0)
                         <div class="flex flex-col gap-4">
                             <table class="table-auto w-full">
                                 @foreach ($laporan_harian as $laporan)
