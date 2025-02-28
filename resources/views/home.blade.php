@@ -5,6 +5,13 @@
         <h1 class="mb-1 font-bold">Assalamualaikum {{ $nama ?? '' }}</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Hari ini <span class="text-[#007dd9] dark:text-[#007dd9] font-medium">{{ $hari_ini->tanggal_hijriyah }}</span> / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
         
+        <!-- jika hari ini belum lapor harian -->
+        @if(!$sudah_lapor_hari_ini)
+            <div class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <span class="font-medium">Sepertinya kamu belum lapor hari ini. Yuk mulai setor laporan harian <a href="{{ route('laporan.create') }}" class="text-[#007dd9]">disini</a></span>
+            </div>
+        @endif
+
         <h1 class="mb-1 mt-7 font-bold">Waktu Sholat DKI Jakarta</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Waktu sekarang: <span id="time"></span> WIB</p>
         <ul class="flex flex-col mb-4 lg:mb-6">

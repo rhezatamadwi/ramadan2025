@@ -72,12 +72,19 @@ class HomeController extends Controller
                 'is' => time() >= strtotime($hari_ini->isya)
             ],
         ];
+
+        $laporan_harian_hari_ini = DB::table('laporan_harian')
+            ->select(DB::raw('count(*) as jumlah'))
+            ->where('id_user', auth()->user()->id)
+            ->where('id_hari', $hari_ini->id)
+            ->first();
         
         return view('home', [
             'nama' => $nama,
             'laporan_harian' => $laporan_harian,
             'hari_ini' => $hari_ini,
-            'list_jadwal_sholat' => $list_jadwal_sholat
+            'list_jadwal_sholat' => $list_jadwal_sholat,
+            'sudah_lapor_hari_ini' => $laporan_harian_hari_ini->jumlah > 0
         ]);
     }
 }
