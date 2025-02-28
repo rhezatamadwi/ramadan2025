@@ -12,6 +12,9 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    private const ROLE_ADMIN = 1;
+    private const ROLE_USER = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,5 +49,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Memeriksa apakah pengguna memiliki peran sebagai admin.
+     * 
+     * Metode ini memeriksa apakah ID role pengguna saat ini sama dengan konstanta ROLE_ADMIN.
+     * 
+     * @return bool True jika pengguna adalah admin, false jika bukan.
+     */
+    public function isAdmin(): bool {
+        return $this->id_role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * Memeriksa apakah pengguna berjenis kelamin wanita.
+     *
+     * Fungsi ini mengecek nilai properti gender pengguna untuk menentukan
+     * apakah pengguna tersebut berjenis kelamin wanita.
+     *
+     * @return bool Mengembalikan true jika pengguna berjenis kelamin wanita (gender='P'),
+     *              false jika bukan
+     */
+    public function isWanita(): bool {
+        return $this->gender === 'P';
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LaporanHarian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class LaporanHarianController extends Controller
 {
@@ -28,7 +29,7 @@ class LaporanHarianController extends Controller
         ];
 
         $user = auth()->user();
-        $is_wanita = $user->gender == 'P';
+        $is_wanita = $user->isWanita();
 
         // get laporan harian
         $list_laporan_harian = $this->getListLaporanHarian();
@@ -67,7 +68,7 @@ class LaporanHarianController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $is_wanita = $user->gender == 'P';
+        $is_wanita = $user->isWanita();
         $is_haid = 0;
         if($is_wanita) {
             $is_haid = $request->is_haid;
@@ -200,7 +201,7 @@ class LaporanHarianController extends Controller
         ];
 
         $user = auth()->user();
-        $is_wanita = $user->gender == 'P';
+        $is_wanita = $user->isWanita();
 
         // get laporan harian by id
         $laporan_harian_instance = LaporanHarian::select(
@@ -214,8 +215,8 @@ class LaporanHarianController extends Controller
         ->first();
 
         // jika id user tidak sama dengan id_user pada laporan harian, atau tanggal tidak sama dengan hari ini
-        if($laporan_harian_instance->id_user != $user->id || $laporan_harian_instance->tanggal_masehi != date('Y-m-d')) {
-            session()->flash('alert-danger', 'Anda tidak memiliki akses untuk mengubah laporan ini!');
+        if(Gate::denies('update-laporan', $laporan_harian_instance)) {
+            session()->flash('alert-danger', 'Anda sudah tidak memiliki akses untuk mengubah laporan ini!');
             return redirect()->route('home');
         }
 
