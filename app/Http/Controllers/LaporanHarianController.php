@@ -44,11 +44,15 @@ class LaporanHarianController extends Controller
         // get hari ini
         $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
 
+        // laporan_harian instance for getting attribute label
+        $laporan_harian_instance = resolve(LaporanHarian::class);
+
         return view('laporan.create', [
             'options' => $options,
             'is_wanita' => $is_wanita,
             'laporan_harian' => $laporan_harian,
             'hari_ini' => $hari_ini,
+            'laporan_harian_instance' => $laporan_harian_instance,
         ]);
     }
 
@@ -205,7 +209,7 @@ class LaporanHarianController extends Controller
         ->get();
 
         // get laporan harian by id
-        $laporan_harian_by_id = LaporanHarian::select(
+        $laporan_harian_instance = LaporanHarian::select(
             'laporan_harian.*',
             'm_hari.tanggal_hijriyah',
             'm_hari.tanggal_masehi'
@@ -222,7 +226,7 @@ class LaporanHarianController extends Controller
             'options' => $options,
             'is_wanita' => $is_wanita,
             'laporan_harian' => $laporan_harian,
-            'laporan_harian_by_id' => $laporan_harian_by_id,
+            'laporan_harian_instance' => $laporan_harian_instance,
             'hari_ini' => $hari_ini,
         ]);
     }
