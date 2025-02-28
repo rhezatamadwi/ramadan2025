@@ -27,9 +27,13 @@ class HomeController extends Controller
             ->get();
         }
 
+        // get hari ini
+        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+
         return view('home', [
             'nama' => $nama,
-            'laporan_harian' => $laporan_harian
+            'laporan_harian' => $laporan_harian,
+            'hari_ini' => $hari_ini,
         ]);
     }
 }
