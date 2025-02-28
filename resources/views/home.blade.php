@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="text-[16px] leading-[24px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-lg">
-        <h1 class="mb-1 font-medium">Assalamualaikum {{ $nama ?? '' }}</h1>
+        <h1 class="mb-1 font-bold">Assalamualaikum {{ $nama ?? '' }}</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Hari ini <span class="text-[#007dd9] dark:text-[#007dd9] font-medium">{{ $hari_ini->tanggal_hijriyah }}</span> / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
         
-        <h1 class="mb-1 mt-7 font-medium">Waktu Sholat DKI Jakarta</h1>
+        <h1 class="mb-1 mt-7 font-bold">Waktu Sholat DKI Jakarta</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Waktu sekarang: <span id="time"></span> WIB</p>
         <ul class="flex flex-col mb-4 lg:mb-6">
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_imsak) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_imsak) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_imsak) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -20,7 +20,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_subuh) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_subuh) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_subuh) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -30,7 +30,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_terbit) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_terbit) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_terbit) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -50,7 +50,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_dzuhur) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_dzuhur) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_dzuhur) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -60,7 +60,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_ashar) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_ashar) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_ashar) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -70,7 +70,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_maghrib) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_maghrib) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_maghrib) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
@@ -80,7 +80,7 @@
             </li>
             <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
                 <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 @if($is_isya) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_isya) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
                         <span class="rounded-full @if($is_isya) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
                     </span>
                 </span>
