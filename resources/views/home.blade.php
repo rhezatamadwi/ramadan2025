@@ -8,86 +8,18 @@
         <h1 class="mb-1 mt-7 font-bold">Waktu Sholat DKI Jakarta</h1>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Waktu sekarang: <span id="time"></span> WIB</p>
         <ul class="flex flex-col mb-4 lg:mb-6">
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_imsak) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_imsak) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
+            @foreach ($list_jadwal_sholat as $jadwal)
+                <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
+                    <span class="relative py-1 bg-white dark:bg-[#161615]">
+                        <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($jadwal['is']) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
+                            <span class="rounded-full @if($jadwal['is']) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
+                        </span>
                     </span>
-                </span>
-                <span class="@if($is_imsak)font-bold @endif">
-                    Imsak <span class="inline-flex items-center space-x-1 @if($is_imsak)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->imsak }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_subuh) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_subuh) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
+                    <span class="@if($jadwal['is'])font-bold @endif">
+                        {{ $jadwal['nama'] }}<span class="inline-flex items-center space-x-1 @if($jadwal['is'])font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $jadwal['waktu'] }}</span> WIB
                     </span>
-                </span>
-                <span class="@if($is_subuh)font-bold @endif">
-                    Subuh <span class="inline-flex items-center space-x-1 @if($is_subuh)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->subuh }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_terbit) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_terbit) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_terbit)font-bold @endif">
-                    Terbit <span class="inline-flex items-center space-x-1 @if($is_terbit)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->terbit }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_dhuha) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_dhuha) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_dhuha)font-bold @endif">
-                    Dhuha <span class="inline-flex items-center space-x-1 @if($is_dhuha)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->dhuha }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_dzuhur) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_dzuhur) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_dzuhur)font-bold @endif">
-                    Zuhur <span class="inline-flex items-center space-x-1 @if($is_dzuhur)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->dzuhur }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_ashar) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_ashar) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_ashar)font-bold @endif">
-                    Ashar <span class="inline-flex items-center space-x-1 @if($is_ashar)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->ashar }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_maghrib) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_maghrib) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_maghrib)font-bold @endif">
-                    Maghrib <span class="inline-flex items-center space-x-1 @if($is_maghrib)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->maghrib }}</span> WIB
-                </span>
-            </li>
-            <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
-                <span class="relative py-1 bg-white dark:bg-[#161615]">
-                    <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border @if($is_isya) border-[#007dd9] @else dark:border-[#3E3E3A] border-[#e3e3e0] @endif">
-                        <span class="rounded-full @if($is_isya) bg-[#007dd9] @else bg-[#dbdbd7] dark:bg-[#3E3E3A] @endif w-1.5 h-1.5"></span>
-                    </span>
-                </span>
-                <span class="@if($is_isya)font-bold @endif">
-                    Isya <span class="inline-flex items-center space-x-1 @if($is_isya)font-bold @else font-medium @endif text-[#007dd9] dark:text-[#007dd9] ml-1">{{ $hari_ini->isya }}</span> WIB
-                </span>
-            </li>
+                </li>
+            @endforeach
         </ul>
         <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Follow Instagram <a target="_blank" href="https://instagram.com/lifeatlpdp" class="text-[#007dd9] dark:text-[#007dd9] font-medium">@lifeatlpdp</a></p>
     

@@ -30,27 +30,54 @@ class HomeController extends Controller
         // get hari ini
         $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
 
-        $is_isya = time() >= strtotime($hari_ini->isya);
-        $is_maghrib = time() >= strtotime($hari_ini->maghrib) && time() < strtotime($hari_ini->isya);
-        $is_ashar = time() >= strtotime($hari_ini->ashar) && time() < strtotime($hari_ini->maghrib);
-        $is_dzuhur = time() >= strtotime($hari_ini->dzuhur) && time() < strtotime($hari_ini->ashar);
-        $is_dhuha = time() >= strtotime($hari_ini->dhuha) && time() < strtotime($hari_ini->dzuhur);
-        $is_terbit = time() >= strtotime($hari_ini->terbit) && time() < strtotime($hari_ini->dhuha);
-        $is_subuh = time() >= strtotime($hari_ini->subuh) && time() < strtotime($hari_ini->terbit);
-        $is_imsak = time() >= strtotime($hari_ini->imsak) && time() < strtotime($hari_ini->subuh);
+        $list_jadwal_sholat = [
+            0 => [
+                'waktu' => $hari_ini->imsak,
+                'nama' => 'Imsak',
+                'is' => time() >= strtotime($hari_ini->imsak) && time() < strtotime($hari_ini->subuh)
+            ],
+            1 => [
+                'waktu' => $hari_ini->subuh,
+                'nama' => 'Subuh',
+                'is' => time() >= strtotime($hari_ini->subuh) && time() < strtotime($hari_ini->terbit)
+            ],
+            2 => [
+                'waktu' => $hari_ini->terbit,
+                'nama' => 'Terbit',
+                'is' => time() >= strtotime($hari_ini->terbit) && time() < strtotime($hari_ini->dhuha)
+            ],
+            3 => [
+                'waktu' => $hari_ini->dhuha,
+                'nama' => 'Dhuha',
+                'is' => time() >= strtotime($hari_ini->dhuha) && time() < strtotime($hari_ini->dzuhur)
+            ],
+            4 => [
+                'waktu' => $hari_ini->dzuhur,
+                'nama' => 'Dzuhur',
+                'is' => time() >= strtotime($hari_ini->dzuhur) && time() < strtotime($hari_ini->ashar)
+            ],
+            5 => [
+                'waktu' => $hari_ini->ashar,
+                'nama' => 'Ashar',
+                'is' => time() >= strtotime($hari_ini->ashar) && time() < strtotime($hari_ini->maghrib)
+            ],
+            6 => [
+                'waktu' => $hari_ini->maghrib,
+                'nama' => 'Maghrib',
+                'is' => time() >= strtotime($hari_ini->maghrib) && time() < strtotime($hari_ini->isya)
+            ],
+            7 => [
+                'waktu' => $hari_ini->isya,
+                'nama' => 'Isya',
+                'is' => time() >= strtotime($hari_ini->isya)
+            ],
+        ];
         
         return view('home', [
             'nama' => $nama,
             'laporan_harian' => $laporan_harian,
             'hari_ini' => $hari_ini,
-            'is_isya' => $is_isya,
-            'is_maghrib' => $is_maghrib,
-            'is_ashar' => $is_ashar,
-            'is_dzuhur' => $is_dzuhur,
-            'is_dhuha' => $is_dhuha,
-            'is_terbit' => $is_terbit,
-            'is_subuh' => $is_subuh,
-            'is_imsak' => $is_imsak
+            'list_jadwal_sholat' => $list_jadwal_sholat
         ]);
     }
 }
