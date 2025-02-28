@@ -100,11 +100,12 @@
                             <div class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
                                 <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Laporan hanya bisa diubah di hari yang sama</span>
                             </div>
-                            <table class="table-auto w-full">
-                                @foreach ($laporan_harian as $laporan)
-                                    <tr>
-                                        <td class="px-4 py-2 border-b border-[#3E3E3A]" colspan="2">
-                                            {!! '<span class="text-lg font-bold">' . $laporan->tanggal_hijriyah . ' / ' . $laporan->getFormattedDate() . '</span>' !!}
+                            @foreach ($laporan_harian as $laporan)
+                                <div class="border-b border-slate-200">
+                                    <button onclick="toggleAccordion({{ $loop->index }})" class="w-full flex justify-between items-center py-5 text-slate-800">
+                                        <!-- accordion title -->
+                                        <span class="text-lg font-bold">
+                                            {!! $laporan->tanggal_hijriyah . ' / ' . $laporan->getFormattedDate() !!}
 
                                             <!-- label datang bulan -->
                                             @if ($laporan->is_haid)
@@ -115,20 +116,32 @@
                                             @if($laporan->tanggal_masehi == date('Y-m-d'))
                                                 <a href="{{ route('laporan.edit', $laporan->id) }}" class="inline-flex items-center rounded bg-[#007dd9] px-2 py-1 text-xs font-medium text-[#EDEDEC] ring-1 ring-[#007dd9]/10 ring-inset hover:bg-[#1d97f1]"><x-lucide-edit-2 class="w-3 h-3 mr-1" /> Ubah Laporan</a>
                                             @endif
-                                        </td>
-                                    </tr>
-                                    @foreach ($laporan->getListAttributesFilled() as $attribute)
-                                        <tr>
-                                            <td class="px-4 py-2 border-b border-gray-200">
-                                                {{ $laporan->getAttributeLabel($attribute) }}
-                                            </td>
-                                            <td class="px-4 py-2 border-b border-gray-200">
-                                                {!! $laporan->getFormattedAttribute($attribute) !!}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </table>
+                                        </span>
+                                        <span id="icon-{{ $loop->index }}" class="text-slate-800 transition-transform duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                                                <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <!-- accordion content -->
+                                    <div id="content-{{ $loop->index }}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <div class="pb-5 text-sm text-slate-500">
+                                            <table class="table-auto w-full">
+                                                @foreach ($laporan->getListAttributesFilled() as $attribute)
+                                                    <tr>
+                                                        <td class="px-4 py-2 border-b border-gray-200">
+                                                            {{ $laporan->getAttributeLabel($attribute) }}
+                                                        </td>
+                                                        <td class="px-4 py-2 border-b border-gray-200">
+                                                            {!! $laporan->getFormattedAttribute($attribute) !!}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     <!-- belum ada laporan -->
                     @else
@@ -147,6 +160,7 @@
 
         @include('layouts.footer')
 
+        <!-- modal -->
         <script>
             // Modal functionality
             const modalBackdrop = document.getElementById('modalBackdrop');
@@ -183,6 +197,8 @@
                 }
             });
         </script>
+        
+        <!-- display clock -->
         <script>
             function checkTime(i) {
                 if (i < 10) {
@@ -192,7 +208,6 @@
             }
             
             function startTime() {
-                console.log('startTime');
                 var today = new Date();
                 var h = today.getHours();
                 var m = today.getMinutes();
@@ -209,6 +224,37 @@
             document.addEventListener('DOMContentLoaded', () => {
                 startTime();
             });
+        </script>
+
+        <!-- accordion -->
+        <script>
+            function toggleAccordion(index) {
+                const content = document.getElementById(`content-${index}`);
+                const icon = document.getElementById(`icon-${index}`);
+            
+                // SVG for Down icon
+                const downSVG = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+                `;
+            
+                // SVG for Up icon
+                const upSVG = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+                </svg>
+                `;
+            
+                // Toggle the content's max-height for smooth opening and closing
+                if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                    content.style.maxHeight = '0';
+                    icon.innerHTML = upSVG;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.innerHTML = downSVG;
+                }
+            }
         </script>
     </body>
 </html>
