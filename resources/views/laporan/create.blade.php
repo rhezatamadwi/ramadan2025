@@ -9,18 +9,8 @@
         <form action="{{ route('laporan.store') }}" method="POST">
             @csrf
 
-            <!-- Tanggal -->
-            <div class="mt-8">
-                <x-input-label for="tanggal" :value="__('Tanggal')" />
-
-                @if(empty($laporan_harian_by_id))
-                    <x-text-input id="tanggal" class="block mt-1 w-full datepicker" type="text" name="tanggal" :value="old('tanggal')" :required="1" autofocus autocomplete="tanggal" />
-                    <x-input-error :messages="$errors->get('tanggal')" class="mt-2" />
-                @else
-                    <p class="block mt-1 w-full text-gray-500 dark:text-gray-400">{{ $laporan_harian_by_id->tanggal_hijriyah }} / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
-                    <input type="hidden" name="tanggal" value="{{ $laporan_harian_by_id->tanggal_masehi }}">
-                @endif
-            </div>
+            <input type="hidden" name="tanggal" value="{{ $laporan_harian_by_id->tanggal_masehi ?? date('Y-m-d') }}">
+            <x-input-error :messages="$errors->get('tanggal')" class="mt-2" />
 
             @if ($is_wanita)
                 <!-- Apakah Sedang Haid -->

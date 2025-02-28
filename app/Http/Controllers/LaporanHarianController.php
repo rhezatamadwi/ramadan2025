@@ -104,7 +104,7 @@ class LaporanHarianController extends Controller
 
         // validate request
         $request->validate([
-            'tanggal' => 'required|date_format:Y-m-d',
+            'tanggal' => 'required|date_format:Y-m-d|date_equals:today',
             $attr_1 => 'required|in:0,1',
             $attr_2 => 'required|in:0,1',
             $attr_3 => 'required|in:0,1',
@@ -114,6 +114,9 @@ class LaporanHarianController extends Controller
             $attr_7 => 'required|in:0,1',
         ], [
             '*.required' => ':attribute wajib diisi',
+            '*.date_format' => ':attribute tidak sesuai format',
+            '*.date_equals' => ':attribute tidak sesuai tanggal hari ini',
+            '*.in' => ':attribute tidak sesuai pilihan',
         ]);
 
         // get id_hari

@@ -97,10 +97,16 @@
                                     <tr>
                                         <td class="px-4 py-2 border-b border-[#3E3E3A]" colspan="2">
                                             {!! '<span class="text-lg font-bold">' . $laporan->tanggal_hijriyah . ' / ' . $laporan->getFormattedDate() . '</span>' !!}
+
+                                            <!-- label datang bulan -->
                                             @if ($laporan->is_haid)
                                                 <span class="inline-flex items-center rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Datang Bulan</span>
                                             @endif
+
+                                            <!-- hanya bisa ubah di hari yang sama -->
+                                            @if($laporan->tanggal_masehi == date('Y-m-d'))
                                                 <a href="{{ route('laporan.edit', $laporan->id) }}" class="inline-flex items-center rounded bg-[#007dd9] px-2 py-1 text-xs font-medium text-[#EDEDEC] ring-1 ring-[#007dd9]/10 ring-inset hover:bg-[#1d97f1]"><x-lucide-edit-2 class="w-3 h-3 mr-1" /> Ubah Laporan</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @foreach ($laporan->getListAttributesFilled() as $attribute)
