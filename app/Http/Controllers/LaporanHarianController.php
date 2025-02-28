@@ -41,10 +41,14 @@ class LaporanHarianController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
+        // get hari ini
+        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+
         return view('laporan.create', [
             'options' => $options,
             'is_wanita' => $is_wanita,
-            'laporan_harian' => $laporan_harian
+            'laporan_harian' => $laporan_harian,
+            'hari_ini' => $hari_ini,
         ]);
     }
 
@@ -178,6 +182,46 @@ class LaporanHarianController extends Controller
     public function edit(string $id)
     {
         //
+        $options = [
+            0 => 'Tidak',
+            1 => 'Ya',
+        ];
+
+        $user = auth()->user();
+        $is_wanita = $user->gender == 'P';
+
+        // get laporan harian
+        $laporan_harian = LaporanHarian::select(
+            'laporan_harian.*',
+            'm_hari.tanggal_hijriyah',
+            'm_hari.tanggal_masehi'
+        )
+        ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
+        ->where('id_user', auth()->user()->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        // get laporan harian by id
+        $laporan_harian_by_id = LaporanHarian::select(
+            'laporan_harian.*',
+            'm_hari.tanggal_hijriyah',
+            'm_hari.tanggal_masehi'
+        )
+        ->join('m_hari', 'laporan_harian.id_hari', '=', 'm_hari.id')
+        ->where('laporan_harian.id', $id)
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        // get hari ini
+        $hari_ini = DB::table('m_hari')->where('tanggal_masehi', date('Y-m-d'))->first();
+
+        return view('laporan.create', [
+            'options' => $options,
+            'is_wanita' => $is_wanita,
+            'laporan_harian' => $laporan_harian,
+            'laporan_harian_by_id' => $laporan_harian_by_id,
+            'hari_ini' => $hari_ini,
+        ]);
     }
 
     /**

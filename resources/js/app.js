@@ -12,10 +12,23 @@ Alpine.start();
 document.addEventListener('DOMContentLoaded', () => {
     flatpickr('.datepicker', {
         dateFormat: "Y-m-d",
-        minDate: "2025-02-01",
+        minDate: "2025-02-28",
         maxDate: "today",
         defaultDate: "today"
     });
+
+    const is_haid = document.querySelector('#is_haid');
+    const container_form = document.querySelector('#container-laporan-form');
+    const container_haid_form = document.querySelector('#container-laporan-haid-form');
+
+    if(is_haid.value == 1) {
+        container_form.style.display="none";
+        container_haid_form.style.display="block";
+    }
+    else if(is_haid.value == 0 && is_haid.value != '') {
+        container_form.style.display="block";
+        container_haid_form.style.display="none";
+    }
 });
 
 // Get the element
