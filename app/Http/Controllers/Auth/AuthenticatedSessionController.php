@@ -34,6 +34,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         $request->session()->flash('alert-success', 'Sukses login');
 
+        if($user->isAdmin()){
+            return redirect()->intended(route('leaderboard.index', absolute: false));
+        }
+
         return redirect()->intended(route('home', absolute: false));
     }
 
