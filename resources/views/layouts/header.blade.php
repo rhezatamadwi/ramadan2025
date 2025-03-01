@@ -12,10 +12,19 @@
                 <x-theme-switch class="ml-4" />
                 
                 @auth
-                    <!-- Modal Trigger Button -->
-                    <button id="openModalBtn" class="px-2 py-2 text-[#1b1b18] dark:text-[#EDEDEC] border border-[#19140035] dark:border-[#3E3E3A] hover:border-[#007dd9] dark:hover:border-[#007dd9] rounded">
-                        Laporan Harian
-                    </button>
+                    <!-- leaderboard -->
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('leaderboard.index') }}" class="flex px-2 py-2 text-[#1b1b18] dark:text-[#EDEDEC] border border-[#19140035] dark:border-[#3E3E3A] hover:border-[#007dd9] dark:hover:border-[#007dd9] rounded">
+                            <x-lucide-medal class="w-5 h-5 mr-1" /> Klasemen
+                        </a>
+                    <!-- laporan harian -->
+                    @else
+                        <button id="openModalBtn" class="px-2 py-2 text-[#1b1b18] dark:text-[#EDEDEC] border border-[#19140035] dark:border-[#3E3E3A] hover:border-[#007dd9] dark:hover:border-[#007dd9] rounded">
+                            Laporan Harian
+                        </button>
+                    @endif
+
+                    <!-- logout -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 

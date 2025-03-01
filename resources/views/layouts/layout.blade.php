@@ -67,6 +67,13 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
 
+        @if (Route::is('leaderboard.show'))
+            <!-- back button -->
+            <div class="flex justify-center mt-4">
+                <a href="{{ route('leaderboard.index') }}" class="inline-flex items-center justify-center px-4 py-2 mb-4 text-sm font-medium text-center text-white bg-[#007dd9] hover:bg-[#005bb5] focus:ring-4 focus:outline-none focus:ring-[#007dd9]/50 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05),0px_1px_3px_0px_rgba(0,0,0,0.1)] dark:bg-[#007dd9] dark:hover:bg-[#005bb5] dark:focus:ring-[#007dd9]/40"><x-lucide-arrow-left class="w-5 h-5 mr-1" /> Kembali</a>
+            </div>
+        @endif
+
         <!-- Modal Backdrop -->
         <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-40">
             <!-- Modal Container - Made larger -->
@@ -75,7 +82,7 @@
                 <div class="px-6 py-4 bg-gray-100 border-b flex justify-between items-center">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-medium text-gray-900">Laporan Harian</h3>
-                        @if(!$sudah_lapor_hari_ini)
+                        @if(isset($sudah_lapor_hari_ini) && !$sudah_lapor_hari_ini)
                             <a
                                 href="{{ route('laporan.create') }}"
                                 class="flex inline-block px-2 py-1.5 bg-[#007dd9] text-[#EDEDEC] hover:bg-[#1d97f1] rounded text-sm leading-normal ml-4"
