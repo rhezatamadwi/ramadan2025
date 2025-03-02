@@ -10,12 +10,20 @@
     animation: breatheDot 1.5s ease-in-out infinite;
 }
 
+.breathing-text {
+    animation: breatheText 1.5s ease-in-out infinite;
+}
+
 .dark .breathing-border {
     animation: breatheBorderDark 1.5s ease-in-out infinite;
 }
 
 .dark .breathing-dot {
     animation: breatheDotDark 1.5s ease-in-out infinite;
+}
+
+.dark .breathing-text {
+    animation: breatheTextDark 1.5s ease-in-out infinite;
 }
 
 @keyframes breatheBorder {
@@ -38,6 +46,15 @@
     }
 }
 
+@keyframes breatheText {
+    0%, 100% {
+        color: #007dd9;
+    }
+    50% {
+        color: #000000;
+    }
+}
+
 @keyframes breatheBorderDark {
     0%, 100% {
         border-color: #007dd9;
@@ -55,5 +72,14 @@
     50% {
         background-color: #3E3E3A;
         transform: scale(0.8);
+    }
+}
+
+@keyframes breatheTextDark {
+    0%, 100% {
+        color: #007dd9;
+    }
+    50% {
+        color: #dbdbd7;
     }
 }

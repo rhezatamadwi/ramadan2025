@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanHarian;
+use App\Models\MHari;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -75,6 +76,38 @@ class HomeController extends Controller
             'hari_ini' => $hari_ini,
             'list_jadwal_sholat' => $list_jadwal_sholat,
             'sudah_lapor_hari_ini' => $sudah_lapor_hari_ini
+        ]);
+    }
+
+    public function waktuSholat() {
+        $from = date('2025-03-01');
+        $to = date('2025-03-31');
+
+        $list_jadwal_sholat = MHari::whereBetween('tanggal_masehi', [$from, $to])->get();
+
+        // get hari ini
+        $hari_ini = $this->getHariIni();
+
+        $is_imsak = time() >= strtotime($hari_ini->imsak) && time() < strtotime($hari_ini->subuh);
+        $is_subuh = time() >= strtotime($hari_ini->subuh) && time() < strtotime($hari_ini->terbit);
+        $is_terbit = time() >= strtotime($hari_ini->terbit) && time() < strtotime($hari_ini->dhuha);
+        $is_dhuha = time() >= strtotime($hari_ini->dhuha) && time() < strtotime($hari_ini->dzuhur);
+        $is_dzuhur = time() >= strtotime($hari_ini->dzuhur) && time() < strtotime($hari_ini->ashar);
+        $is_ashar = time() >= strtotime($hari_ini->ashar) && time() < strtotime($hari_ini->maghrib);
+        $is_maghrib = time() >= strtotime($hari_ini->maghrib) && time() < strtotime($hari_ini->isya);
+        $is_isya = time() >= strtotime($hari_ini->isya);
+        
+        return view('waktu-sholat', [
+            'list_jadwal_sholat' => $list_jadwal_sholat,
+            'hari_ini' => $hari_ini,
+            'is_imsak' => $is_imsak,
+            'is_subuh' => $is_subuh,
+            'is_terbit' => $is_terbit,
+            'is_dhuha' => $is_dhuha,
+            'is_dzuhur' => $is_dzuhur,
+            'is_ashar' => $is_ashar,
+            'is_maghrib' => $is_maghrib,
+            'is_isya' => $is_isya
         ]);
     }
 }

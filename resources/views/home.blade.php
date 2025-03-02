@@ -3,7 +3,8 @@
 @section('content')
     <div class="text-[16px] leading-[24px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-lg">
         <h1 class="mb-1 font-bold">Assalamualaikum {{ $nama ?? '' }}</h1>
-        <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Hari ini <span class="text-[#007dd9] dark:text-[#007dd9] font-medium">{{ $hari_ini->tanggal_hijriyah }}</span> / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
+        <p class="text-[#706f6c] dark:text-[#A1A09A]">Hari ini <span class="text-[#007dd9] dark:text-[#007dd9] font-medium">{{ $hari_ini->tanggal_hijriyah }}</span> / {{ date('j F Y', strtotime($hari_ini->tanggal_masehi)) }}</p>
+        <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Waktu sekarang: <span id="time"></span> WIB</p>
         
         <!-- jika hari ini belum lapor harian -->
         @auth
@@ -14,8 +15,10 @@
             @endif
         @endauth
 
-        <h1 class="mb-1 mt-7 font-bold">Waktu Sholat DKI Jakarta</h1>
-        <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Waktu sekarang: <span id="time"></span> WIB</p>
+        <h1 class="mb-1 mt-7 font-bold">Waktu Sholat DKI Jakarta Hari Ini</h1>
+        <!-- link to route waktu-sholat -->
+        <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]"><a href="{{ route('waktuSholat') }}" class="flex items-center text-[#007dd9] dark:text-[#007dd9] font-medium"><x-lucide-external-link class="w-4 h-4 mr-1" /> Lihat waktu sholat satu bulan</a></p>
+
         <ul class="flex flex-col mb-4 lg:mb-6">
             @foreach ($list_jadwal_sholat as $jadwal)
                 <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
