@@ -11,7 +11,7 @@
                 <tr class="bg-gray-100 dark:bg-gray-800">
                 <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Tanggal</th>
                 <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Imsak</th>
-                <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Shubuh</th>
+                <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Subuh</th>
                 <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Terbit</th>
                 <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Dhuha</th>
                 <th class="px-4 py-2 border-b-2 border-gray-300 dark:border-gray-700 text-left font-semibold">Dzuhur</th>
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 @foreach ($list_jadwal_sholat as $jadwal)
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 @if($jadwal->tanggal_masehi == date('Y-m-d')) font-bold @endif">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 @if($jadwal->tanggal_masehi == date('Y-m-d')) font-bold @elseif($jadwal->tanggal_masehi < date('Y-m-d')) text-[#bbbbbb] dark:text-[#505050] @endif">
                     <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->tanggal_hijriyah . ' / ' . $jadwal->getFormattedDate() }}</td>
                     <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_imsak) text-[#007dd9] breathing-text @endif">{{ $jadwal->imsak }}</td>
                     <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_subuh) text-[#007dd9] breathing-text @endif">{{ $jadwal->subuh }}</td>
