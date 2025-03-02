@@ -176,35 +176,38 @@
             const openModalBtn = document.getElementById('openModalBtn');
             const closeModalBtn = document.getElementById('closeModalBtn');
             const cancelBtn = document.getElementById('cancelBtn');
-            
-            // Open modal
-            openModalBtn.addEventListener('click', () => {
-                modalBackdrop.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden');
-            });
-            
-            // Close modal functions
-            const closeModal = () => {
-                modalBackdrop.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            };
-            
-            closeModalBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
-            
-            // Close on backdrop click
-            modalBackdrop.addEventListener('click', (e) => {
-                if (e.target === modalBackdrop) {
-                    closeModal();
-                }
-            });
-            
-            // Close on Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modalBackdrop.classList.contains('hidden')) {
-                    closeModal();
-                }
-            });
+
+            // if openModalBtn is not null
+            if (openModalBtn) {
+                // Open modal
+                openModalBtn.addEventListener('click', () => {
+                    modalBackdrop.classList.remove('hidden');
+                    document.body.classList.add('overflow-hidden');
+                });
+                
+                // Close modal functions
+                const closeModal = () => {
+                    modalBackdrop.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                };
+                
+                closeModalBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+                
+                // Close on backdrop click
+                modalBackdrop.addEventListener('click', (e) => {
+                    if (e.target === modalBackdrop) {
+                        closeModal();
+                    }
+                });
+                
+                // Close on Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !modalBackdrop.classList.contains('hidden')) {
+                        closeModal();
+                    }
+                });
+            }
         </script>
         
         <!-- display clock -->
@@ -221,13 +224,17 @@
                 var h = today.getHours();
                 var m = today.getMinutes();
                 var s = today.getSeconds();
-                // add a zero in front of numbers<10
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-                t = setTimeout(function() {
-                    startTime()
-                }, 500);
+                var time = document.getElementById('time');
+
+                if(time) {
+                    // add a zero in front of numbers<10
+                    m = checkTime(m);
+                    s = checkTime(s);
+                    time.innerHTML = h + ":" + m + ":" + s;
+                    t = setTimeout(function() {
+                        startTime()
+                    }, 500);
+                }
             }
 
             document.addEventListener('DOMContentLoaded', () => {
