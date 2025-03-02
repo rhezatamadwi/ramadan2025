@@ -98,6 +98,7 @@ class HomeController extends Controller
         $is_isya = time() >= strtotime($hari_ini->isya);
 
         $list_laporan_harian = null;
+        $sudah_lapor_hari_ini = false;
         if(auth()->user()) {
             // get laporan harian
             $list_laporan_harian = $this->getListLaporanHarian();
