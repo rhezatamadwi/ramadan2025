@@ -22,16 +22,16 @@
             </thead>
             <tbody>
                 @foreach ($list_jadwal_sholat as $jadwal)
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 @if($jadwal->tanggal_masehi == date('Y-m-d')) font-semibold @endif">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 @if($jadwal->tanggal_masehi == date('Y-m-d')) font-bold @endif">
                     <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->tanggal_hijriyah . ' / ' . $jadwal->getFormattedDate() }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->imsak }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->subuh }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->terbit }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->dhuha }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_imsak) text-[#007dd9] breathing-text @endif">{{ $jadwal->imsak }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_subuh) text-[#007dd9] breathing-text @endif">{{ $jadwal->subuh }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_terbit) text-[#007dd9] breathing-text @endif">{{ $jadwal->terbit }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_dhuha) text-[#007dd9] breathing-text @endif">{{ $jadwal->dhuha }}</td>
                     <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_dzuhur) text-[#007dd9] breathing-text @endif">{{ $jadwal->dzuhur }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->ashar }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->maghrib }}</td>
-                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $jadwal->isya }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_ashar) text-[#007dd9] breathing-text @endif">{{ $jadwal->ashar }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_maghrib) text-[#007dd9] breathing-text @endif">{{ $jadwal->maghrib }}</td>
+                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 @if($jadwal->tanggal_masehi == date('Y-m-d') && $is_isya) text-[#007dd9] breathing-text @endif">{{ $jadwal->isya }}</td>
                 </tr>
                 @endforeach
             </tbody>
