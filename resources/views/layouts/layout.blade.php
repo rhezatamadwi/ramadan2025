@@ -107,7 +107,11 @@
                     @if(!empty($list_laporan_harian) && count($list_laporan_harian) > 0)
                         <div class="flex flex-col gap-4">
                             <div class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-                                <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Laporan hanya bisa diubah di hari yang sama</span>
+                                <span class="flex font-medium"><x-lucide-alert-circle class="w-5 h-5 mr-1" /> Ketentuan laporan harian:</span>
+                                <ul class="ml-4 list-disc">
+                                    <li class="ml-4">Laporan harian baru dihitung sejak laporan tanggal <strong>3 Ramadan 1446H / 3 Maret 2025</strong></li>
+                                    <li class="ml-4">Laporan harian hanya bisa diisi/diubah pada hari yang sama</li>
+                                </ul>
                             </div>
                             @foreach ($list_laporan_harian as $laporan)
                                 <div class="border-b border-slate-200">

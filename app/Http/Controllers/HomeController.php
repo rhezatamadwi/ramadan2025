@@ -101,6 +101,9 @@ class HomeController extends Controller
         if(auth()->user()) {
             // get laporan harian
             $list_laporan_harian = $this->getListLaporanHarian();
+
+            // apakah sudah lapor hari ini
+            $sudah_lapor_hari_ini = $this->getIsSudahLaporHariIni($hari_ini->id);
         }
         
         return view('waktu-sholat', [
@@ -114,7 +117,8 @@ class HomeController extends Controller
             'is_ashar' => $is_ashar,
             'is_maghrib' => $is_maghrib,
             'is_isya' => $is_isya,
-            'list_laporan_harian' => $list_laporan_harian
+            'list_laporan_harian' => $list_laporan_harian,
+            'sudah_lapor_hari_ini' => $sudah_lapor_hari_ini
         ]);
     }
 }
