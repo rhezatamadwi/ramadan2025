@@ -52,7 +52,11 @@ abstract class Controller
      * @param int $id_hari ID hari yang akan diperiksa
      * @return bool TRUE jika pengguna sudah melaporkan pada hari tersebut, FALSE jika belum
      */
-    public function getIsSudahLaporHariIni(int $id_hari) {
+    public function getIsSudahLaporHariIni(int $id_hari): bool {
+        // admin tidak perlu lapor, sehingga dianggap sudah melapor
+        if(auth()->user()->isAdmin())
+            return true;
+
         $laporan_harian_hari_ini = DB::table('laporan_harian')
                 ->select(DB::raw('count(*) as jumlah'))
                 ->where('id_user', auth()->user()->id)
