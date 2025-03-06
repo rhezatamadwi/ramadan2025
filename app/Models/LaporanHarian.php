@@ -60,7 +60,7 @@ class LaporanHarian extends Model
             'haid_memberi_makanan_iftar' => 'Apakah Anda Sudah Memberi Makanan Orang yang Berpuasa?',
             'haid_mendengar_alquran' => 'Apakah Anda Sudah Mendengarkan Al-Quran?',
             'haid_infaq' => 'Apakah Anda Sudah Berinfaq?',
-            'haid_membaca_surah_nabawiyah' => 'Apakah Anda Sudah Membaca Surah Nabawiyah?',
+            'haid_membaca_surah_nabawiyah' => 'Apakah Anda Sudah Membaca Sirah Nabawiyah?',
             'haid_membaca_hadist' => 'Apakah Anda Sudah Membaca Hadist?',
             default => $attribute,
         };
