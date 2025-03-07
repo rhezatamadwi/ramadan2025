@@ -21,7 +21,7 @@ class LeaderboardController extends Controller
             DB::raw('SUM(laporan_harian.total) AS total_score')
         )
         ->join('users', 'users.id', '=', second: 'laporan_harian.id_user')
-        ->where('laporan_harian.id_hari', '>=', 8)
+        ->where('laporan_harian.id_hari', '>=', 8) // dihitung mulai dari 3 Ramadan
         ->groupBy('users.id')
         ->orderBy('total_score', 'desc')
         ->get();
